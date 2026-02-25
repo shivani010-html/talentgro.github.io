@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TalentGro Global – AI Tools & Business Automation Workshop</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* updated to orange and light blue gradient */
+      --bg-grad: linear-gradient(135deg,#ff6b00 0%,#ffd480 40%,#87cefa 100%);
+      --accent:#ff6b00;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;}
+    /* Navbar offset for fixed header */
+    main{padding-top:80px}
+    /* navbar styles - orange and blue gradient */
+    .navbar{background:linear-gradient(90deg,#001f3f 0%,#0033cc 50%,#ff6b00 100%) !important;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+    .navbar.scrolled{background:linear-gradient(90deg,#001f3f 0%,#0033cc 50%,#ff6b00 100%) !important;box-shadow:0 4px 15px rgba(0,0,0,0.3);}
+    .navbar-brand{color:#fff !important;font-weight:800 !important;font-size:1.3rem;}
+    .nav-link{color:#87cefa !important;transition:background-color 0.3s, color 0.3s;border-radius:0.25rem;padding:0.4rem 0.8rem;font-weight:700;}
+    .nav-link:hover{color:#001f3f !important;background-color:#ff6b00;}
+
+    /* Hero */
+    .hero{
+      min-height:75vh;
+      display:flex;
+      align-items:center;
+      color:#0a1f44;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.08), transparent), var(--bg-grad);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero h1{color:#0a1f44 !important}
+    .hero .lead{opacity:0.95;color:#0a1f44}
+    .btn-cta{background:#fff;color:var(--accent);font-weight:600}
+    .btn-outline-ghost{border:1px solid rgba(255,255,255,0.18);color:#fff}
+    .hero-decor{position:absolute;right:-120px;bottom:-80px;opacity:0.12;transform:rotate(-25deg);filter:blur(18px)}
+    /* Circular AI image with animation */
+    .ai-image-circle{
+      width:320px;height:320px;border-radius:50%;object-fit:cover;
+      border:5px solid #ff6b00;box-shadow:0 0 40px rgba(255,107,0,0.5);
+      animation:float-bounce 4s ease-in-out infinite;margin:0 auto;
+    }
+    @keyframes float-bounce{
+      0%{transform:translateY(0px);}
+      50%{transform:translateY(-25px);}
+      100%{transform:translateY(0px);}
+    }
+    /* Price and button styling */
+    .btn-cta{position:relative;overflow:hidden;}
+    .btn-cta::before{
+      content:'';position:absolute;top:50%;left:50%;width:0;height:0;
+      background:rgba(255,255,255,0.5);border-radius:50%;
+      transform:translate(-50%,-50%);transition:width 0.6s, height 0.6s;
+    }
+    .btn-cta:hover::before{width:300px;height:300px;}
+    .btn-register-hero{
+      animation:pulse-glow 0.8s infinite;
+      box-shadow:0 0 20px rgba(255,107,0,0.6);
+    }
+    @keyframes pulse-glow{
+      0%{box-shadow:0 0 20px rgba(255,107,0,0.6);transform:scale(1);}
+      50%{box-shadow:0 0 35px rgba(255,107,0,1);transform:scale(1.03);}
+      100%{box-shadow:0 0 20px rgba(255,107,0,0.6);transform:scale(1);}
+    }
+
+    /* Cards hover */
+    .learn-card{transition:transform .28s ease,box-shadow .28s ease}
+    .learn-card:hover{transform:translateY(-10px);box-shadow:0 18px 40px rgba(20,20,60,0.12)}
+
+    /* Feature boxes */
+    .feature{background:#fff;border-radius:12px;padding:28px;box-shadow:0 10px 30px rgba(20,20,60,0.06);transition:transform .2s}
+    .feature:hover{transform:translateY(-6px)}
+
+    /* Mentor */
+    /* About section card styling */
+    .about-info-card{
+      background:#fff;border-radius:12px;padding:25px;box-shadow:0 8px 25px rgba(0,0,0,0.08);
+      border-left:5px solid #ff6b00;transition:transform 0.4s, box-shadow 0.4s;
+    }
+    .about-info-card:hover{transform:translateY(-8px);box-shadow:0 15px 35px rgba(0,0,0,0.15);}
+    .about-info-card h4{color:#0a1f44;font-weight:700;}
+    .about-info-card p{color:#0a1f44;font-weight:600;margin:0;}
+    .btn-register-green{
+      background:linear-gradient(135deg,#10b981 0%,#059669 100%);
+      border:none;color:#fff;font-weight:700;font-size:1.1rem;
+      padding:1rem 2.5rem;box-shadow:0 0 25px rgba(16,185,129,0.5);
+      animation:pulse-green 1s infinite;
+    }
+    .btn-register-green:hover{background:linear-gradient(135deg,#059669 0%,#047857 100%);box-shadow:0 0 35px rgba(16,185,129,0.7);}
+    @keyframes pulse-green{
+      0%{box-shadow:0 0 25px rgba(16,185,129,0.5);transform:scale(1);}
+      50%{box-shadow:0 0 40px rgba(16,185,129,0.8);transform:scale(1.02);}
+      100%{box-shadow:0 0 25px rgba(16,185,129,0.5);transform:scale(1);}
+    }
+    /* Scrolling background section */
+    .about-scroll-bg{
+      position:relative;overflow:hidden;background:#f8f9fa;min-height:600px;
+    }
+    .scroll-images{
+      position:absolute;top:0;left:0;width:100%;height:100%;display:flex;opacity:0.15;z-index:0;
+      animation:scroll-horizontal 20s linear infinite;
+    }
+    .scroll-img{
+      min-width:25%;height:100%;object-fit:cover;flex-shrink:0;
+    }
+    @keyframes scroll-horizontal{
+      0%{transform:translateX(0);}
+      100%{transform:translateX(-100%);}
+    }
+    .about-content-wrapper{
+      position:relative;z-index:1;
+    }
+    @media (max-width:768px){
+      .about-scroll-bg{min-height:400px;}
+      .scroll-img{min-width:50%;}
+    }
+    @media (max-width:576px){
+      .about-scroll-bg{min-height:300px;}
+      .scroll-img{min-width:100%;}
+    }
+
+    /* Registration form UI styles */
+    .reg-section-bg{background:linear-gradient(135deg,rgba(255,235,214,0.6) 0%, rgba(255,255,255,0.85) 60%);} /* light orange to white */
+    .reg-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 20px 40px rgba(16,24,40,0.08);max-width:780px;margin:24px auto;position:relative;overflow:visible}
+    /* entrance animation for registration card */
+    .reg-card.animated{animation:regEnter .8s cubic-bezier(.2,.9,.3,1) both}
+    @keyframes regEnter{0%{opacity:0;transform:translateY(22px) scale(.995)}60%{opacity:1;transform:translateY(-6px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    /* urgency banner message */
+    .urgency-banner{background:linear-gradient(90deg,#ff6b00 0%,#ff8c42 100%);color:#fff;padding:16px 20px;border-radius:12px;margin-bottom:20px;font-weight:800;font-size:1.15rem;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 30px rgba(255,107,0,0.18);animation:wiggle 0.6s ease-in-out infinite}
+    .urgency-banner i{font-size:1.4rem}
+    @keyframes wiggle{0%{transform:translateX(0)}25%{transform:translateX(-4px)}50%{transform:translateX(0)}75%{transform:translateX(4px)}100%{transform:translateX(0)}}
+    /* rotated badge pseudo-element removed */
+    .reg-card h4{color:#0a1f44;font-weight:800;margin-bottom:6px}
+    .reg-card .small-muted{color:#6b7280;font-weight:600}
+    .progress-steps{display:flex;gap:8px;align-items:center;margin-bottom:12px;justify-content:center}
+    .step-dot{width:10px;height:10px;border-radius:50%;background:#e6e7eb}
+    .step-dot.active{background:#ff6b00;box-shadow:0 0 8px rgba(255,107,0,0.3)}
+    .step-text{font-size:0.95rem;color:#6b7280}
+    .form-floating .form-control,.form-floating .form-select{height:56px;padding:1.25rem .75rem;border-radius:10px;border:1px solid #e6e7eb}
+    .form-floating .form-control:focus,.form-floating .form-select:focus{box-shadow:0 6px 20px rgba(255,107,0,0.12);border-color:#ff6b00}
+    .form-floating label{padding-left:12px}
+    .form-row-gap{gap:20px}
+    .btn-join{background:linear-gradient(135deg,#042a63 0%,#001f44 100%);color:#fff;border:none;padding:14px 26px;border-radius:12px;font-weight:800;font-size:1.05rem;transition:all .18s ease;box-shadow:0 10px 25px rgba(4,10,44,0.12)}
+    .btn-join:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(4,10,44,0.18);filter:brightness(.95)}
+    .btn-join.pulse{animation:btnBounce 1s cubic-bezier(.22,.9,.37,1) infinite}
+    @keyframes btnBounce{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-8px) scale(1.03)}60%{transform:translateY(0) scale(0.995)}100%{transform:translateY(0) scale(1)}}
+    .secure-note{font-size:0.85rem;color:#6b7280;margin-top:10px}
+    /* ripple */
+    .ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:rgba(255,255,255,0.35);animation:ripple 0.6s ease-out}
+    @keyframes ripple{from{opacity:0.9;transform:translate(-50%,-50%) scale(0)}to{opacity:0;transform:translate(-50%,-50%) scale(3)}}
+    @media(min-width:992px){.reg-card::after{display:inline-block}}
+    /* AI Curriculum Modules */
+    .curriculum-section{background:linear-gradient(135deg,#f3f4f6 0%,#e5e7eb 100%);padding:80px 0;position:relative;overflow:hidden}
+    .curriculum-module{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 35px rgba(0,0,0,0.08);transition:all .4s ease;animation:moduleSlideUp .8s ease-out forwards}
+    @keyframes moduleSlideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .curriculum-module:nth-child(1){animation-delay:0s}
+    .curriculum-module:nth-child(2){animation-delay:0.15s}
+    .curriculum-module:nth-child(3){animation-delay:0.3s}
+    .curriculum-module:nth-child(4){animation-delay:0.45s}
+    .curriculum-module:nth-child(5){animation-delay:0.6s}
+    .curriculum-module:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(255,107,0,0.15)}
+    .curriculum-header{padding:24px;background:linear-gradient(135deg,#ff6b00 0%,#ff8c42 100%);color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .3s ease}
+    .curriculum-header:hover{background:linear-gradient(135deg,#ff8c42 0%,#ffa500 100%);padding:28px 24px}
+    .curriculum-header h4{margin:0;font-weight:800;font-size:1.25rem}
+    .curriculum-header .toggle-icon{font-size:1.4rem;transition:transform .3s ease}
+    .curriculum-module.active .toggle-icon{transform:rotate(180deg)}
+    .curriculum-content{padding:24px;border-top:2px solid #f0f0f0;display:none;max-height:0;overflow:hidden;transition:all .4s ease}
+    .curriculum-module.active .curriculum-content{display:block;max-height:500px}
+    .curriculum-content ul{list-style:none;padding:0;margin:0}
+    .curriculum-content li{padding:10px 0;padding-left:28px;position:relative;color:#4b5563;font-size:0.95rem;line-height:1.6}
+    .curriculum-content li:before{content:'✓';position:absolute;left:0;color:#ff6b00;font-weight:bold;font-size:1.1rem}
+    /* Contact Sidebar */
+    .curriculum-contact{background:linear-gradient(135deg,#1e7145 0%,#15a34a 100%);border-radius:16px;padding:32px 24px;color:#fff;box-shadow:0 15px 45px rgba(30,113,69,0.2);position:sticky;top:120px;height:fit-content;animation:contactSlideIn .8s ease-out both}
+    @keyframes contactSlideIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+    .curriculum-contact h3{margin:0 0 8px 0;font-weight:800;font-size:1.3rem}
+    .curriculum-contact p{margin:8px 0;font-size:0.95rem;line-height:1.5;opacity:0.95}
+    .curriculum-contact .contact-number{background:rgba(255,255,255,0.2);padding:16px;border-radius:10px;margin:16px 0;font-weight:800;font-size:1.15rem;text-align:center;border:2px solid rgba(255,255,255,0.3)}
+    .btn-contact-now{background:#fff;color:#15a34a;border:none;padding:14px 28px;border-radius:10px;font-weight:800;font-size:1rem;cursor:pointer;transition:all .3s ease;width:100%;margin-top:20px;box-shadow:0 8px 20px rgba(0,0,0,0.15);animation:alertPulse 2s ease-in-out infinite}
+    .btn-contact-now:hover{background:#f0fdf4;transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.25)}
+    @keyframes alertPulse{0%{transform:scale(1);box-shadow:0 8px 20px rgba(0,0,0,0.15)}50%{transform:scale(1.08);box-shadow:0 0 30px rgba(21,163,74,0.5)}100%{transform:scale(1);box-shadow:0 8px 20px rgba(0,0,0,0.15)}}
+    /* Final CTA button styles */
+    #final-cta .btn-cta{background:linear-gradient(135deg,#1e7145 0%,#15a34a 100%);color:#fff;}
+    #final-cta .btn-cta.pulse{animation:btnBounce 1s cubic-bezier(.22,.9,.37,1) infinite;}
+    /* Benefit card effects */
+    .feature{transition:all 0.3s ease;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+    .feature:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.25),0 0 20px rgba(255,107,0,0.15)}
+    /* Curriculum Card Animations & Effects */
+    .curriculum-card{transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);animation:cardFloat 3s ease-in-out infinite;position:relative;will-change:transform}
+    @keyframes cardFloat{0%,100%{transform:translateY(0px)}50%{transform:translateY(-10px)}}
+    .curriculum-card:hover{transform:translateY(-15px) scale(1.03);box-shadow:0 35px 70px rgba(0,0,0,0.45),0 0 50px rgba(255,107,0,0.35),inset 0 1px 0 rgba(255,255,255,0.15) !important;opacity:0.98}
+    .curriculum-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,107,0,0.25) 0%,rgba(255,107,0,0.08) 40%,transparent 70%);opacity:0;transition:opacity 0.5s ease;border-radius:16px;z-index:1;pointer-events:none}
+    .curriculum-card:hover::before{opacity:1}
+    .curriculum-card::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 0%,rgba(255,255,255,0.1) 50%,transparent 100%);opacity:0;border-radius:16px;z-index:2;transition:opacity 0.5s ease;pointer-events:none}
+    .curriculum-card:hover::after{opacity:1;animation:shimmer 0.6s ease-in-out}
+    @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    .curriculum-card-title{transition:all 0.4s ease;text-shadow:0 2px 8px rgba(0,0,0,0.4);transform:translateZ(0)}
+    .curriculum-card:hover .curriculum-card-title{text-shadow:0 3px 15px rgba(0,0,0,0.6),0 0 20px rgba(255,107,0,0.4)}
+    /* Footer */
+    footer{background:#0f1724;color:#b9c2d9}
+
+    /* Responsive tweaks */
+    @media (max-width:767px){
+      .hero{min-height:62vh;padding:60px 0}
+      main{padding-top:70px}
+      .hero-decor{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="ailogo.png" alt="Logo" class="me-2" height="40" />
+        TalentGro Global
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#course outline">course outline</a></li>
+          <li class="nav-item"><a class="nav-link" href="#benefits">Benefits</a></li>
+          <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item ms-3 d-lg-inline-block">
+            <a class="btn btn-light btn-sm btn-cta" href="#register">Register Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <header id="home" class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="display-5 fw-bold">TalentGro Global — AI Tools & Business Automation Workshop</h1>
+            <p class="lead mt-3 mb-4">Master practical AI tools and automation workflows to scale your business, accelerate decision making, and build efficiency-driven products.</p>
+            <div class="d-flex gap-2 mt-4">
+              <a href="#register" class="btn btn-cta btn-lg btn-register-hero"><span style="color:#87cefa;font-weight:700;font-size:1.1rem;">₹19,999</span> | Enroll Now</a>
+              <a href="#about" class="btn btn-outline-ghost btn-lg">Learn More</a>
+            </div>
+          </div>
+          <div class="col-lg-5 d-none d-lg-block text-center">
+            <img src="https://brainpod.ai/wp-content/uploads/2022/08/12.png" alt="AI illustration" class="ai-image-circle">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="py-5 about-scroll-bg position-relative">
+      <!-- Scrolling background images -->
+      <div class="scroll-images">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.9vrC1brwlgPK0PqUzxfjtQHaHa?pid=Api&h=220&P=0" alt="AI" class="scroll-img">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.5zNNv4xyVlWcj1PlkLz1mAHaHa?pid=Api&h=220&P=0" alt="Tech" class="scroll-img">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.8eSXAjyz5OQYKOGs_UVPjgHaHa?pid=Api&h=220&P=0" alt="Workshop" class="scroll-img">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.bII6Y4L0aRzgOX5KTxPtdQHaJQ?pid=Api&h=220&P=0" alt="Learning" class="scroll-img">
+      </div>
+      <div class="container about-content-wrapper">
+        <h2 class="text-center mb-5" style="color:#0a1f44;font-weight:700;">About the Workshop</h2>
+        <div class="row g-4 mb-5">
+          <div class="col-md-6">
+            <div class="about-info-card">
+              <h4><i class="bi bi-calendar3 me-2 text-warning"></i>Start Date</h4>
+              <p>22 March 2026</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="about-info-card">
+              <h4><i class="bi bi-geo-alt-fill me-2 text-danger"></i>Location</h4>
+              <p>Mohali Campus</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="about-info-card">
+              <h4><i class="bi bi-broadcast me-2" style="color:#10b981;"></i>Mode</h4>
+              <p>Online & Offline Both</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="about-info-card">
+              <h4><i class="bi bi-clock-fill me-2" style="color:#06b6d4;"></i>Duration</h4>
+              <p>30 Hours Course</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a href="#register" class="btn btn-register-green btn-lg">Register Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Curriculum Modules with Detailed Content -->
+    <section id="course outline" class="curriculum-section py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 style="color:#0a1f44;font-weight:800;font-size:2.2rem;margin-bottom:12px;">Complete AI Workshop Curriculum</h2>
+          <p style="color:#6b7280;font-size:1.05rem;">6 comprehensive modules to master AI & business automation</p>
+        </div>
+        <div class="row g-4">
+              <!-- Module 1 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://tse3.mm.bing.net/th/id/OIP.NeL3Y4jiziWC4hIgaNHBvwHaEK?pid=Api&h=220&P=0');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">🤖</span>AI Basics & Foundation</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Module 2 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://getgenie.ai/wp-content/uploads/2025/02/Best-AI-Productivity-Tools.jpg');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">⚡</span>AI Tools for Productivity</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Module 3 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://tse3.mm.bing.net/th/id/OIP._kslPf4GmGSPkJKCcQ1TqAHaEK?pid=Api&h=220&P=0');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">🎨</span>AI for Content Creation</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Module 4 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://tse2.mm.bing.net/th/id/OIP.ViudwZXpxgL32UYsfIW3rQHaEK?pid=Api&h=220&P=0');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">🔧</span>Business Automation</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Module 5 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://tse2.mm.bing.net/th/id/OIP.nQEHcC_YAPd3fIIvgGSyHQHaEL?pid=Api&h=220&P=0');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">💰</span>AI+Freelancing Setup</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- Module 6 -->
+              <div class="col-lg-6">
+                <div class="curriculum-card" style="background:linear-gradient(135deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://tse2.mm.bing.net/th/id/OIP.BokpGnEvsJYZoEsS43S6qQHaD4?pid=Api&h=220&P=0');background-size:cover;background-position:center;border-radius:16px;overflow:hidden;height:280px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 20px 50px rgba(0,0,0,0.3),0 0 30px rgba(255,107,0,0.15);position:relative;">
+                  <div style="padding:24px;color:#fff;position:relative;z-index:2;">
+                    <h4 class="curriculum-card-title" style="color:#fff;font-weight:800;font-size:1.3rem;margin:0;display:flex;align-items:center;gap:10px;"><span style="font-size:1.5rem;">📈</span>Prompt engineering</h4>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You Will Learn / Curriculum -->
+    <section class="py-5 bg-light" style="display:none;">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="h3 mb-0">What You Will Learn</h2>
+          <p class="mb-0 text-muted">Six focused modules to take you from concept to deployment.</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- 6 cards -->
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-primary text-white rounded-3 p-3">
+                  <i class="bi bi-robot fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Intro to Generative AI</h5>
+                  <p class="text-muted mb-0">Foundations and hands-on prompts for creative automation.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-success text-white rounded-3 p-3">
+                  <i class="bi bi-gear-wide-connected fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Automation Workflows</h5>
+                  <p class="text-muted mb-0">Design workflows to automate repetitive tasks and scale operations.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-warning text-white rounded-3 p-3">
+                  <i class="bi bi-bar-chart-line fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Data & Metrics</h5>
+                  <p class="text-muted mb-0">Measure impact using the right KPIs and data pipelines.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-info text-white rounded-3 p-3">
+                  <i class="bi bi-shield-lock fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Ethics & Safety</h5>
+                  <p class="text-muted mb-0">Best practices for safe, responsible deployment.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-secondary text-white rounded-3 p-3">
+                  <i class="bi bi-code-slash fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Implementation</h5>
+                  <p class="text-muted mb-0">Integrate AI tools into production and MLOps basics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card learn-card h-100 p-3">
+              <div class="card-body d-flex gap-3">
+                <div class="flex-shrink-0 bg-danger text-white rounded-3 p-3">
+                  <i class="bi bi-people-fill fs-4"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">Growth & GTM</h5>
+                  <p class="text-muted mb-0">Monetization strategies and go-to-market playbooks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits" class="py-5">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="h3">Benefits</h2>
+          <p class="text-muted">What you gain from attending</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="feature text-center h-100 p-4 rounded shadow-sm">
+              <div class="mb-3 fs-2 text-primary"><i class="bi bi-briefcase-fill"></i></div>
+              <h5 class="mb-1">Internship Opportunity</h5>
+              <p class="text-muted small">Work on real assignments with partner organizations.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feature text-center h-100 p-4 rounded shadow-sm">
+              <div class="mb-3 fs-2 text-success"><i class="bi bi-person-lines-fill"></i></div>
+              <h5 class="mb-1">Mentor Guidance</h5>
+              <p class="text-muted small">One‑on‑one support from industry experts.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feature text-center h-100 p-4 rounded shadow-sm">
+              <div class="mb-3 fs-2 text-warning"><i class="bi bi-laptop-fill"></i></div>
+              <h5 class="mb-1">Live Projects</h5>
+              <p class="text-muted small">Hands‑on projects you can showcase to employers.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="feature text-center h-100 p-4 rounded shadow-sm">
+              <div class="mb-3 fs-2 text-info"><i class="bi bi-award-fill"></i></div>
+              <h5 class="mb-1">Certificates</h5>
+              <p class="text-muted small">Receive verified certificates on completion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration Form (replaces Mentor section) -->
+    <section id="register" class="py-5 bg-light">
+      <div class="container">
+        <div class="text-center mb-3">
+          <div class="progress-steps justify-content-center">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="ms-3 step-text">Step 1 of 2</div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-lg-8">
+            <div class="urgency-banner">
+              <i class="bi bi-lightning-fill"></i>
+              <span>Limited Seats Available — Be Fast!</span>
+              <i class="bi bi-lightning-fill"></i>
+            </div>
+            <div class="reg-card">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h4>Join the Workshop</h4>
+                <div class="small-muted">Basic Details</div>
+              </div>
+              <form id="regForm">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" name="name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" name="email" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">WhatsApp Number</label>
+                    <input type="tel" class="form-control" name="phone" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Are You?</label>
+                    <select class="form-select" name="role" required>
+                      <option value="student">Student</option>
+                      <option value="freelancer">Freelancer</option>
+                      <option value="business">Business Owner</option>
+                      <option value="jobseeker">Job Seeker</option>
+                    </select>
+                  </div>
+                  <div class="col-12 text-center mt-2">
+                    <button type="submit" id="joinBtn" class="btn btn-join pulse">🚀 Join the Workshop</button>
+                    <div class="secure-note">🔒 Your information is safe & secure</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-5">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="h3">Frequently Asked Questions</h2>
+          <p class="text-muted">Quick answers to common questions</p>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-1">Who is this AI workshop for?</button>
+            </h2>
+            <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">This workshop is perfect for beginners and students who want practical knowledge and career opportunities in AI and machine learning.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-2">What will I learn in this workshop?</button>
+            </h2>
+            <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Fundamentals of AI, popular tools (ChatGPT, DALL-E), live projects, coding, and real-world AI applications.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-3">Will I get a certificate?</button>
+            </h2>
+            <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes, participants will receive a completion certificate along with a project portfolio to showcase on resumes and LinkedIn.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-4">What is the duration and timing?</button>
+            </h2>
+            <div id="faq-4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">The workshop lasts 2–4 weeks (specific dates provided) with live sessions in the evenings or weekends.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faq-heading-5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-5">Will recorded sessions be available?</button>
+            </h2>
+            <div id="faq-5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">Yes, if you miss a live session, you will have access to the recorded sessions.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="final-cta" class="py-5 text-center" style="background:linear-gradient(180deg,rgba(111,66,193,0.06),transparent);">
+      <div class="container">
+        <h2 class="h1 mb-3">"From zero to AI expert in just 8 to 7 weeks!"</h2>
+        <p class="lead text-muted mb-4">Join TalentGro Global's workshop and start building production-ready automations.</p>
+        <a class="btn btn-cta btn-lg px-5 pulse" href="#register">Register Now</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container d-md-flex justify-content-between align-items-center">
+      <div class="mb-3 mb-md-0">
+        <strong>Contact:</strong> <a href="Talentgroglobal@gmail.com" class="text-decoration-none">Talentgroglobal@gmail.com</a> +91 9888877722  <br> +91 9815370979
+      </div>
+      <div class="d-flex gap-3 align-items-center">
+        <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="text-muted"><i class="bi bi-youtube"></i></a>
+      </div>
+    </div>
+    <div class="container text-center mt-3 small text-muted">© <span id="year"></span> TalentGro Global. All rights reserved.</div>
+  </footer>
+
+  <!-- Bootstrap JS + small scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll with offset for fixed navbar
+    (function(){
+      const navLinks = document.querySelectorAll('a.nav-link, a.btn-cta, a.btn-outline-ghost');
+      const nav = document.getElementById('mainNav');
+      const offset = () => nav.offsetHeight + 10;
+      navLinks.forEach(link=>{
+        const href = link.getAttribute('href');
+        if(!href || !href.startsWith('#')) return;
+        link.addEventListener('click', function(e){
+          const target = document.querySelector(href);
+          if(target){
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.pageYOffset - offset();
+            window.scrollTo({top, behavior:'smooth'});
+            // collapse mobile menu
+            const bsCollapse = new bootstrap.Collapse(document.getElementById('navMenu'), {toggle:false});
+            if(window.getComputedStyle(document.querySelector('.navbar-toggler')).display!=='none') bsCollapse.hide();
+          }
+        });
+      });
+    })();
+    // Trigger reg-card animation when visible
+    (function(){
+      const card = document.querySelector('.reg-card');
+      if(!card) return;
+      // if IntersectionObserver supported, add class when in view
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach(en => {
+            if(en.isIntersecting){
+              card.classList.add('animated');
+              obs.unobserve(card);
+            }
+          });
+        }, {threshold:0.18});
+        io.observe(card);
+      } else {
+        // fallback: animate after short delay
+        setTimeout(()=>card.classList.add('animated'), 450);
+      }
+    })();
+  </script>
+</body>
+</html>
